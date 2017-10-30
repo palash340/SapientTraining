@@ -8,6 +8,6 @@ import java.io.Serializable;
 public class LockTest implements Serializable{
     public static void main(String[] args) {
         System.out.println("Hello" +
-                "My Name");
+                "My Name1");
     }
 }
