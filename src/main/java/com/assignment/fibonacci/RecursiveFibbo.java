@@ -10,9 +10,12 @@ public class RecursiveFibbo {
             tempVal = initialValue1 + initialValue2;
             initialValue1 = initialValue2;
             initialValue2 = tempVal;
-            System.out.print(" "+ tempVal);
             printFibonacci(initialValue1, initialValue2, count-1);
+        }else{
+            System.out.println();
         }
+
+
     }
     public static void main(String args[]) {
         RecursiveFibbo rf = new RecursiveFibbo();

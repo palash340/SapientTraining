@@ -28,6 +28,5 @@ public class Anagram {
         text[index] = text[swapIndex];
         text[swapIndex] = temp;
     }
-
 }
 
