@@ -18,16 +18,8 @@ public class KthNodeLinkedList {
         list.addNode(7);
         list.addNode(8);
 
-
-        //print List
-        //list.printList();
-
         //reorder list with kth
         list.reorderKthNode(3);
-
-        //print List
-        list.printList();
-
     }
 
     public void addNode(int val){
@@ -66,7 +58,6 @@ public class KthNodeLinkedList {
                 while (stack.size() != 0) {
                     Node test = stack.pop();
                     tempNode.setNext(test);
-                    System.out.println(test);
                     tempNode = test;
                 }
                 lastNode = tempNode;
@@ -74,24 +65,30 @@ public class KthNodeLinkedList {
             stack.push(node);
             node = node.getNext();
         }
-        printList();
-        System.out.println("*********************");
+
+        boolean isFirstPop = true;
         while (stack.size() != 0) {
-            if(node != null) {
-                Node temp1 = stack.pop();
-                node.setNext(temp1);
-                node = temp1;
+            Node testNode = stack.pop();
+            if(isFirstPop){
+                isFirstPop =false;
+                lastNode.setNext(testNode);
+            }else{
+                lastNode.setNext(testNode);
             }
+            lastNode = testNode;
         }
+        lastNode.setNext(null);
         printList();
     }
 
     public void printList(){
+        System.out.println("KthNodeLinkedList.printList");
         Node node = this.root;
         while(node != null){
             System.out.println(node.getValue());
             node = node.getNext();
         }
+        System.out.println("KthNodeLinkedList.printList");
     }
 
     private void reverse(Node node, Node previousNode){
