@@ -5,6 +5,11 @@ import java.util.Arrays;
 /**
  * Created by pjai60 on 11/21/2017.
  */
+/*
+        You are given an array. Return a same sized array.
+        Every value returned is a product of rest of elements other than the ith element (no division allowed)
+        [1, 3, 4 , 2] -> [24, 8, 6, 12]
+*/
 public class GenerateSubArray {
     public static void main(String[] args) {
         int[] arr = {1,2,3,4};

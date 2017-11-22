@@ -1,5 +1,9 @@
 package com.BinaryTree;
 
+import java.util.Arrays;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * Created by pjai60 on 11/14/2017.
  */
@@ -59,6 +63,16 @@ public class BinaryTree {
 
         System.out.println("***********************************************************************");
         System.out.println("Max Sum of tree leaf is = " + binaryTree.maxSum(binaryTree.root));
+
+        System.out.println("***********************************************************************");
+        System.out.println("Print all Paths");
+        binaryTree.printAllPaths(binaryTree.root, new int[10], 0);
+        System.out.println("***********************************************************************");
+
+        System.out.println("***********************************************************************");
+        System.out.println("Print Level Order");
+        binaryTree.printLevelOrder();
+        System.out.println("***********************************************************************");
 
     }
 
@@ -158,5 +172,82 @@ public class BinaryTree {
         if(root == null)
             return 0;
         return root.getValue() + Math.max(maxSum(root.getLeft()), maxSum(root.getRight()));
+    }
+
+    /* Print Level Order */
+    public void printLevelOrder(){
+        Node node = this.root;
+        Queue<Node> queue = new LinkedBlockingQueue<>();
+        if(node == null)
+            return;
+        queue.add(node);
+        while(!queue.isEmpty()){
+            Node temp = queue.poll();
+            System.out.println(temp);
+            if(temp.getLeft() != null)
+                queue.add(temp.getLeft());
+            if(temp.getRight() != null)
+                queue.add(temp.getRight());
+        }
+    }
+
+    /* TODO */
+    public void printZigZagLevelOrder(){
+        Node node = this.root;
+    }
+
+    /* Print All Paths */
+    public void printAllPaths(Node root, int[] arr, int count){
+        if(root != null){
+            arr[count++] = root.getValue();
+            if(root.getLeft() == null && root.getRight() == null){
+                for(int i = 0 ; i < count; i++)
+                    System.out.print(" " + arr[i] + " ");
+                System.out.println();
+            }else{
+                printAllPaths(root.getLeft(), arr, count);
+                printAllPaths(root.getRight(), arr, count);
+            }
+        }
+    }
+
+    /* TODO */
+    public void mirrorTree(){
+
+    }
+
+    /* TODO */
+    public int findHeightOfElement(){
+        return -1;
+    }
+
+    /* TODO Try Dijkstra Algorithm */
+    public int distanceBetweenTwoNodes(){
+        return -1;
+    }
+
+    /* TODO create a balanced tree from  InOrder, PreOder, PostOrder array */
+    public BinaryTree createTree(int[] preOrder, int[] inOrder){
+        BinaryTree binaryTree = new BinaryTree();
+        return binaryTree;
+    }
+
+    /* TODO Least Common Ancestor */
+    private Node getLCA(Node root, Node n1, Node n2){
+        return null;
+    }
+
+    /* TODO validate tree is BST or not
+    *  Inorder should be sorted array
+    * */
+
+    /* TODO check node is sibling */
+    public boolean isSibling(Node root, Node node1, Node node2){
+        return false;
+    }
+
+    /* TODO check node is sibling */
+    public boolean isCousin(Node root, Node node1, Node node2){
+        return false;
     }
 }

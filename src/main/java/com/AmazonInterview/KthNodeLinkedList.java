@@ -19,7 +19,7 @@ public class KthNodeLinkedList {
         list.addNode(8);
 
         //reorder list with kth
-        list.reorderKthNode(3);
+        list.reorderKthNode(4);
     }
 
     public void addNode(int val){
