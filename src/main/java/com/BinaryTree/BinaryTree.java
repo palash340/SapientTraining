@@ -1,7 +1,13 @@
 package com.BinaryTree;
 
+import com.assignment.Emp;
+
+import java.lang.instrument.Instrumentation;
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Queue;
+import java.util.Stack;
+import java.util.Vector;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -10,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class BinaryTree {
     Node root;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException {
         BinaryTree binaryTree = new BinaryTree();
         binaryTree.insert(10);
         binaryTree.insert(15);
@@ -74,6 +80,34 @@ public class BinaryTree {
         binaryTree.printLevelOrder();
         System.out.println("***********************************************************************");
 
+        System.out.println("***********************************************************************");
+        System.out.println("Print ZigZag Level Order");
+        binaryTree.printZigZagLevelOrder();
+        System.out.println("***********************************************************************");
+
+
+        System.out.println("***********************************************************************");
+        System.out.println("Create Binary Tree from Pre and In Order");
+        int[] preOrder = {10, 8, 7, 9, 15, 14, 16};
+        int[] inOrder = {7, 8, 9, 10, 14, 15, 16};
+        binaryTree.createTree(preOrder, inOrder);
+
+        System.out.println("***********************************************************************");
+        System.out.println("Original  Tree");
+        binaryTree.printLevelOrder();
+        System.out.println();
+        System.out.println("Mirror Tree");
+        binaryTree.mirrorTree();
+        binaryTree.printLevelOrder();
+        System.out.println("***********************************************************************");
+
+
+        System.out.println("Find LCA");
+        Node node = binaryTree.getLCA(binaryTree.root, 8, 15);
+        System.out.println(node);
+        node = binaryTree.getLCA(binaryTree.root, 8, 15);
+        System.out.println(node);
+        System.out.println("***********************************************************************");
     }
 
     /* PreOrder Traversal*/
@@ -141,7 +175,10 @@ public class BinaryTree {
         }
     }
 
-    /* Same Tree*/
+    /*
+        1. Keep iterating and comparing tree recursively
+        2. Compare pre order and in order traversal if equal then tree is equal
+    */
     public boolean sameBSTree(Node root1, Node root2){
         if(root1 == null && root2 == null)
             return true;
@@ -191,9 +228,37 @@ public class BinaryTree {
         }
     }
 
-    /* TODO */
+    /* Print ZigZag Level Order */
     public void printZigZagLevelOrder(){
         Node node = this.root;
+        Stack<Node> stack1 = new Stack<>();
+        Stack<Node> stack2 = new Stack<>();
+        // Add root element
+        stack1.push(node);
+        printZigZag(stack1, stack2, true);
+    }
+
+    private void printZigZag(Stack<Node> stack1, Stack<Node> stack2, boolean isEvenLevel){
+        while(!stack1.isEmpty()){
+            Node node = stack1.pop();
+            System.out.println(node);
+            Node left = node.getLeft();
+            Node right = node.getRight();
+            if(isEvenLevel){
+                if(left != null)
+                    stack2.add(node.getLeft());
+                if(right != null)
+                    stack2.add(node.getRight());
+            }else{
+                if(right != null)
+                    stack2.add(node.getRight());
+                if(left != null)
+                    stack2.add(node.getLeft());
+            }
+        }
+        if(!stack2.isEmpty())
+            printZigZag(stack2, stack1, !isEvenLevel);
+
     }
 
     /* Print All Paths */
@@ -211,9 +276,20 @@ public class BinaryTree {
         }
     }
 
-    /* TODO */
+    /* Mirror Tree */
     public void mirrorTree(){
+        mirrorTree(this.root);
+    }
 
+    private Node mirrorTree(Node node){
+        if(node == null)
+            return node;
+        Node left = mirrorTree(node.getLeft());
+        Node right = mirrorTree(node.getRight());
+
+        node.setRight(left);
+        node.setLeft(right);
+        return node;
     }
 
     /* TODO */
@@ -226,14 +302,31 @@ public class BinaryTree {
         return -1;
     }
 
-    /* TODO create a balanced tree from  InOrder, PreOder, PostOrder array */
+    /* TODO create a balanced tree from  InOrder & PreOder, PostOrder array */
     public BinaryTree createTree(int[] preOrder, int[] inOrder){
         BinaryTree binaryTree = new BinaryTree();
+        Node node = null;
+        binaryTree.root = node;
+        for(int i = 0; i < preOrder.length; i++){
+            node = new Node(null, null, preOrder[i]);
+
+        }
         return binaryTree;
     }
 
+    private int search(int[] inOrder, int start, int end, int nodeValue){
+        if(start == end){
+            return -1;
+        }
+        for(int i = start; i <= end; i++){
+            if(nodeValue == inOrder[i])
+                return i;
+        }
+        return -1;
+    }
+
     /* TODO Least Common Ancestor */
-    private Node getLCA(Node root, Node n1, Node n2){
+    private Node getLCA(Node root, int value1, int value2){
         return null;
     }
 
@@ -246,7 +339,7 @@ public class BinaryTree {
         return false;
     }
 
-    /* TODO check node is sibling */
+    /* TODO check node is Cousin */
     public boolean isCousin(Node root, Node node1, Node node2){
         return false;
     }
