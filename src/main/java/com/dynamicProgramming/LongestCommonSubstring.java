@@ -44,5 +44,4 @@ public class LongestCommonSubstring {
         }
         return max;
     }
-
 }
