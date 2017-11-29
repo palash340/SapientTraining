@@ -20,11 +20,11 @@ public class LongestPathNXNMatrix {
 
         if(dp[i][j] != -1)
             return dp[i][j];
-        //Move Up
+        //Move Down
         if(i<N-1 && (mat[i][j] + 1) == mat[i+1][j]){
             return dp[i][j] = 1 + findLongestPath(i+1, j, mat,dp);
         }
-        //Move Down
+        //Move Up
         if(i>0 && (mat[i][j] + 1) == mat[i-1][j]){
             return dp[i][j] = 1 + findLongestPath(i-1, j, mat,dp);
         }
