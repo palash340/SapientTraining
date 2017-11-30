@@ -19,8 +19,55 @@ package com.AmazonInterview;
     Output should be “start = 1” (index of 2nd petrol pump).
 */
 public class VisitAllPetrolPumps {
+    static class PetrolPump{
+        int distance;
+        int fuel;
+
+        public PetrolPump(int fuel, int distance) {
+            this.distance = distance;
+            this.fuel = fuel;
+        }
+    }
+
+    public int pathPrint(PetrolPump[] pp, int size){
+        int start = 0;
+        int end = 1;
+        int curr_petrol = pp[start].fuel - pp[start].distance;
+
+        while(start != end || curr_petrol < 0){
+
+            while(curr_petrol < 0  && start != end){
+                curr_petrol -= pp[start].fuel - pp[start].distance;
+                start = (start + 1) % size;
+            }
+
+            curr_petrol += pp[end].fuel - pp[end].distance;
+            end = (end + 1) % size;
+        }
+
+        return start;
+    }
+
+    //Driver Program
     public static void main(String[] args) {
+        PetrolPump[] pp = new PetrolPump[]{
+                new PetrolPump(4,6),
+                new PetrolPump(6,5),
+                new PetrolPump(7,3),
+                new PetrolPump(4,5)
+        };
+
+        PetrolPump[] arr = {new PetrolPump(6, 4),
+                new PetrolPump(3, 6),
+                new PetrolPump(7, 3)
+        };
+
+        VisitAllPetrolPumps vpp = new VisitAllPetrolPumps();
+        System.out.println(vpp.pathPrint(pp, pp.length));
+        System.out.println(vpp.pathPrint(arr, arr.length));
 
     }
+
+
 }
 
