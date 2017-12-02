@@ -40,7 +40,6 @@ public class VisitAllPetrolPumps {
                 curr_petrol -= pp[start].fuel - pp[start].distance;
                 start = (start + 1) % size;
             }
-
             curr_petrol += pp[end].fuel - pp[end].distance;
             end = (end + 1) % size;
         }
