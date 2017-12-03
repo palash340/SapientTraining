@@ -5,23 +5,16 @@ package com.recursion;
  */
 public class FindGCD {
     public static void main(String[] args) {
-        int[] vals = {14,21};
         FindGCD gcd = new FindGCD();
-        gcd.gcd(vals);
+        System.out.println(gcd.getGCD(111, 3));
+        System.out.println(gcd.getGCD(14, 21));
     }
 
-    public void gcd(int[] vals){
-        for(int i = 0 ; i < vals.length ; i++)
-            System.out.println("vals[" + i + "] = " + vals[i]);
-    }
+    public int getGCD(int num1, int num2){
+        if(num2 != 0)
+            return getGCD(num2, num1 % num2);
+        else
+            return num1;
 
-
-    public int findMin(int[] vals){
-        int min = 0;
-        return min;
-    }
-
-    public boolean containsOdd(){
-        return false;
     }
 }
