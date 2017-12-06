@@ -4,10 +4,7 @@ import com.assignment.Emp;
 
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -108,6 +105,11 @@ public class BinaryTree {
         node = binaryTree.getLCA(binaryTree.root, 8, 15);
         System.out.println(node);
         System.out.println("***********************************************************************");
+
+        System.out.println(binaryTree1.isComplete(binaryTree1.root));
+        binaryTree1.insert(10);
+        System.out.println("--------");
+        System.out.println(binaryTree1.isComplete(binaryTree1.root));
     }
 
     /* PreOrder Traversal*/
@@ -342,5 +344,48 @@ public class BinaryTree {
     /* TODO check node is Cousin */
     public boolean isCousin(Node root, Node node1, Node node2){
         return false;
+    }
+
+
+    public boolean isComplete(Node root){
+        if(root == null)
+            return true;
+        int size = size(root);
+
+        ArrayList<NodeWithIndex> arrayList = new ArrayList<>();
+        getArrayList(arrayList,0, root);
+        int max = -1;
+        for (NodeWithIndex nodeW: arrayList) {
+            if(max < nodeW.index)
+                max = nodeW.index;
+        }
+        return max+1 == size;
+    }
+
+    private void getArrayList(ArrayList<NodeWithIndex> arrayList, int level, Node node){
+        NodeWithIndex nodeWithIndex = new NodeWithIndex(node, level);
+        arrayList.add(nodeWithIndex);
+        if(node.getLeft() != null)
+            getArrayList(arrayList, 2*level + 1, node.getLeft());
+        if(node.getRight() != null)
+            getArrayList(arrayList, 2*level + 2, node.getRight());
+    }
+}
+
+class NodeWithIndex{
+    Node node;
+    int index;
+
+    public NodeWithIndex(Node node, int index) {
+        this.node = node;
+        this.index = index;
+    }
+
+    @Override
+    public String toString() {
+        return "NodeWithIndex{" +
+                "node=" + node +
+                ", index=" + index +
+                '}';
     }
 }

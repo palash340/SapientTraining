@@ -12,6 +12,7 @@ public class LongestIncreasingSubSequence {
         System.out.println(Arrays.toString(ints));
     }
 
+    // Time complexity for this is n2
     public int[] maxSubSequence(int[] arr){
         int[] result = new int[arr.length];
         //Initialize the array
@@ -27,4 +28,7 @@ public class LongestIncreasingSubSequence {
         }
         return result;
     }
+
+    // Time complexity in linear time
+
 }

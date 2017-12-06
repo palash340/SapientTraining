@@ -38,7 +38,11 @@ public class MinimumNumOfJumps {
                     continue;
             }
         //System.out.println(Arrays.toString(maxJump));
-        //System.out.println(Arrays.toString(jumpPath));
+        System.out.println(Arrays.toString(jumpPath));
         return maxJump[arr.length - 1];
+    }
+
+    public int findMinJumpRec(int[] arr){
+        return 0;
     }
 }
